@@ -84,12 +84,29 @@ let rand_ppm max_dim =
           	body = b;}
 
 (* parser *)
-let white_space = function
-    | ' ' | '\t' -> true
-    | _ -> false
-let eol = function
+let file_type =
+    function
+        | "p6" -> true
+        | _ -> false
+
+let dimension =
+    Angstrom.take_while1
+        (function
+            | '0' .. '9' -> true
+            | _ -> false) >>| int_of_string
+
+let color =
+
+
+let pixel =
+
+
+let white_space =
+    Angstrom.skip_while
+        (function
+            | ' ' | '\t' -> true
+            | _ -> false)
+
+let read_eol = function
     | '\r' | '\n' -> true
-    | _ -> false
-let is_digit = function
-    | '0' .. '9' -> true
     | _ -> false
