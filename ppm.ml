@@ -68,7 +68,8 @@ let find_max_ppm_body (b:ppm_body):char =
 (* modular interface *)
 module PPM =
     struct
-        let rand_ppm max_dim =
+
+        let rand_ppm (max_dim:int):ppm =
             let c = (Random.int max_dim) and r = (Random.int max_dim) in
                 let b = rand_ppm_body (c * r) in
                         { header =
@@ -77,7 +78,11 @@ module PPM =
                             rows = r;
                             max = (find_max_ppm_body b);};
                         body = b;}
+
         let ppm_to_string (a: ppm):string =
             let header_str = (header_to_str a) and body_str = (body_to_str a) in
                 header_str ^ " " ^ body_str
+
+        let rand_ppm_string (max_dim:int):string =
+            ppm_to_string (rand_ppm max_dim)
 end
