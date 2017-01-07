@@ -82,31 +82,3 @@ let rand_ppm max_dim =
                     rows = r;
                     max = (find_max_ppm_body b);};
           	body = b;}
-
-(* parser *)
-let file_type =
-    function
-        | "p6" -> true
-        | _ -> false
-
-let dimension =
-    Angstrom.take_while1
-        (function
-            | '0' .. '9' -> true
-            | _ -> false) >>| int_of_string
-
-let color =
-
-
-let pixel =
-
-
-let white_space =
-    Angstrom.skip_while
-        (function
-            | ' ' | '\t' -> true
-            | _ -> false)
-
-let read_eol = function
-    | '\r' | '\n' -> true
-    | _ -> false
