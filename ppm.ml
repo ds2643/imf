@@ -1,6 +1,5 @@
-open Angstrom
-
-(* ppm specification as type *)
+(* TODO: unit test formally *)
+(* ppm grammar specification as type *)
 
 type color = char (*in range 0 255*)
 
@@ -9,17 +8,16 @@ type pixel = color * color * color
 type ppm_body = pixel list
 
 type ppm_header = {
-        file_type: string; (* "p3" *)
-        columns: int;
-        rows: int;
-        max: char}
+    file_type: string; (* "p3" *)
+    columns: int;
+    rows: int;
+    max: char}
 
 type ppm = {
-        header: ppm_header;
-        body: ppm_body}
+    header: ppm_header;
+    body: ppm_body}
 
 (* native ppm to string *)
-(* TODO: unit test formally *)
 
 let header_to_str (a:ppm):string =
     let header = a.header in
@@ -30,19 +28,13 @@ let header_to_str (a:ppm):string =
             file_type_str ^ " " ^ column_str ^ " " ^ row_str ^ " " ^ max_str
 
 let pixel_to_str ((x, y, z):pixel):string =
-    (* TODO: reexpress with map *)
     (string_of_int (Char.code x)) ^ " " ^ (string_of_int (Char.code y)) ^ " " ^ (string_of_int (Char.code z))
 
 let body_to_str (a:ppm):string =
     let body = a.body in
         String.concat " " (List.map pixel_to_str body)
 
-let ppm_to_string (a: ppm):string =
-    let header_str = (header_to_str a) and body_str = (body_to_str a) in
-        header_str ^ " " ^ body_str
-
 (* generative component *)
-(* TODO: unit test formally *)
 
 let rand_color ():color = (Char.chr (97 + (Random.int 26)))
 
@@ -73,12 +65,19 @@ let find_max_ppm_body (b:ppm_body):char =
     let largest_per_pixel = (List.map find_max_pixel b) in
        list_max largest_per_pixel
 
-let rand_ppm max_dim =
-    let c = (Random.int max_dim) and r = (Random.int max_dim) in
-        let b = rand_ppm_body (c * r) in
-		{ header =
-                    { file_type = "p3";
-                    columns = c;
-                    rows = r;
-                    max = (find_max_ppm_body b);};
-          	body = b;}
+(* modular interface *)
+module PPM =
+    struct
+        let rand_ppm max_dim =
+            let c = (Random.int max_dim) and r = (Random.int max_dim) in
+                let b = rand_ppm_body (c * r) in
+                        { header =
+                            { file_type = "p3";
+                            columns = c;
+                            rows = r;
+                            max = (find_max_ppm_body b);};
+                        body = b;}
+        let ppm_to_string (a: ppm):string =
+            let header_str = (header_to_str a) and body_str = (body_to_str a) in
+                header_str ^ " " ^ body_str
+end
