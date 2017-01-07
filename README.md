@@ -6,11 +6,11 @@ Generative and mutation-based image fuzzer in OCaml. Randomly mutates or generat
 
 Background
 ------
-Put simply, fuzzing involves passing randomized inputs at a program iteratively until unexpected behavior occurs. Observation and analysis of such unexpected behavior (e.g., `SEGEV`) allows an oppertunity for exploitation or security reinforcement.
+Put simply, fuzzing involves passing randomized inputs at a program iteratively until unexpected behavior occurs. Observation and analysis of such unexpected behavior (e.g., `SEGEV`) allows an opportunity for exploitation or security reinforcement.
 
 Trust boundaries, parts of a program that are exposed to potential attackers, must be audited with careful attention. Simple unit testing, while a valid reductionist method to infer if an implementation meets some specification, fails to probe a large portion of the possible input space of these attack surfaces. Emergent behavior, if left unaddressed, may pose liabilities as exploitation targets, so fuzzing is a necessary secondary measure of prevention.
 
-Generative and mutation-based fuzzing fall into the category of black-box fuzzing, which involves fuzzing without knowledge of the unlying source code being necessary. Blackbox testing is cheap (computationally and in terms of its generality) but useful. Mutation testing involves randomly changing a seed that originates from a valid precursor; Generative fuzzing requires the use of a specification to generate well-formed data from scratch.
+Generative and mutation-based fuzzing fall into the category of black-box fuzzing, which involves fuzzing without knowledge of the underlying source code being necessary. Blackbox testing is cheap (computationally and in terms of its generality) but useful. Mutation testing involves randomly changing a seed that originates from a valid precursor; Generative fuzzing requires the use of a specification to generate well-formed data from scratch.
 
 Overview:
 ------
