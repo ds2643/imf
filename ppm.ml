@@ -1,4 +1,9 @@
 (* TODO: unit test formally *)
+(* TODO: refactor modular interface *)
+(* TODO: generate interface file *)
+(* TODO: idiomatically document *)
+(* TODO: seek criticism *)
+
 (* ppm grammar specification as type *)
 
 type color = char (*in range 0 255*)
@@ -66,6 +71,7 @@ let find_max_ppm_body (b:ppm_body):char =
        list_max largest_per_pixel
 
 (* modular interface *)
+
 module PPM =
     struct
 
