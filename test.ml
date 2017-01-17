@@ -17,24 +17,20 @@ let test_ppm_str_dimensions =
         Arbitrary.(int)
         (fun x ->
             let r = (Str.split (Str.regexp " +") rand_ppm_str x) in
-                let w = List.nth r 2 and
-                    h = List.nth r 3 and
+                let w = List.nth r 1 and
+                    h = List.nth r 2 and
                     d = (List.Length r - 4) in
                         (w * h = d)))
 
-(* TODO: expected first label? *)
-let test_ppm_str_dimensions =
+let test_ppm_str_label =
     QCheck.(Test.make
-        ~name:"random ppm: accurate header dimensions?"
+        ~name:"random ppm: expected header label??"
         ~count:1000
         Arbitrary.(int)
         (fun x ->
-            let r = (Str.split (Str.regexp " +") rand_ppm_str x) in
-                let w = List.nth r 2 and
-                    h = List.nth r 3 and
-                    d = (List.Length r - 4) in
-                        (w * h = d)))
-
+            let label =
+                List.nth (Str.split (Str.regex " +" (rand_ppm_str x))) 0 in
+                    (label = "p6")))
 
 (* TODO: valid integers in range *)
 (* TODO: max finds max? *)
