@@ -24,16 +24,32 @@ let test_ppm_str_dimensions =
 
 let test_ppm_str_label =
     QCheck.(Test.make
-        ~name:"random ppm: expected header label??"
-        ~count:1000
+        ~name:"random ppm: expected header label?"
+        ~count:100
         Arbitrary.(int)
         (fun x ->
             let label =
                 List.nth (Str.split (Str.regex " +" (rand_ppm_str x))) 0 in
                     (label = "p6")))
 
-(* TODO: valid integers in range *)
-(* TODO: max finds max? *)
+let test_ppm_str_valid_channels =
+    QCheck.(Test.make
+        ~name:"random ppm: color channels valid?"
+        ~count:100
+        Arbitrary.(int)
+        (fun x ->
+            let channels =
+                List.map (fun x -> string_of_int x) (Battaries.List.drop 4
+                    (Str.split (Str.regex " +" (rand_ppm_str x)))) in
+                        (List.max channels < 256 && List.min channels >= 0)))
+
+let test_ppm_str_valid_channels =
+    QCheck.(Test.make
+        ~name:"random ppm: header max correct?"
+        ~count:100
+        Arbitrary.(int)
+        (fun x -> let r = (Str.split (Str.regexp " +") rand_ppm_str x) in header_max = (List.nth 3 r) and channels = (List.map (fun x -> string_of_int x) (Battaries.List.drop 4 Str.split (Str.regex " +" r))) in (List.max channels = header_max)))
+
 
 
 let () =
