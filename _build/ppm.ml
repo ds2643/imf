@@ -43,6 +43,7 @@ let ppm_to_string (a: ppm):string =
     let header_str = (header_to_str a) and body_str = (body_to_str a) in
         header_str ^ " " ^ body_str
 
+
 (* generative component *)
 
 let rand_color ():color = (Char.chr (97 + (Random.int 26)))

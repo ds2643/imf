@@ -1,0 +1,8 @@
+### Starting build.
+# Target: ppm.ml.depends, tags: { extension:ml, file:ppm.ml, ocaml, ocamldep, quiet }
+/home/david/.opam/4.02.3/bin/ocamldep.opt -modules ppm.ml > ppm.ml.depends
+# Target: ppm.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:ppm.cmo, file:ppm.ml, implem, ocaml, quiet }
+/home/david/.opam/4.02.3/bin/ocamlc.opt -c -o ppm.cmo ppm.ml
+# Target: ppm.byte, tags: { byte, dont_link_with, extension:byte, file:ppm.byte, link, ocaml, program, quiet }
+/home/david/.opam/4.02.3/bin/ocamlc.opt ppm.cmo -o ppm.byte
+# Compilation successful.

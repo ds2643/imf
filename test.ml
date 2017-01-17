@@ -1,20 +1,44 @@
-Open OUnit2
-Open QCheck
+open PPM
+open Str
 
-let test_rand_color =
+let test_ppm_str_pixel_count =
+    let entry_counter =
+        (fun x -> List.length (Str.split (Str.regexp " +") x)); in
+            QCheck.(Test.make
+                ~name:"random ppm: valid count of color channels?"
+                ~count:100
+                Arbitrary.(int)
+                (fun x -> (((entry_counter (rand_ppm_str x)) - 4) mod 3) = 0))
+
+let test_ppm_str_dimensions =
     QCheck.(Test.make
-        ~name:"random_color produces output of type color"
+        ~name:"random ppm: accurate header dimensions?"
+        ~count:100
+        Arbitrary.(int)
+        (fun x ->
+            let r = (Str.split (Str.regexp " +") rand_ppm_str x) in
+                let w = List.nth r 2 and
+                    h = List.nth r 3 and
+                    d = (List.Length r - 4) in
+                        (w * h = d)))
+
+(* TODO: expected first label? *)
+let test_ppm_str_dimensions =
+    QCheck.(Test.make
+        ~name:"random ppm: accurate header dimensions?"
         ~count:1000
-        Arbitrary.(unit)
-        (fun x -> (PPM.rand_color x) ))
-    (* assert rand_color () produces a result of type color *)
+        Arbitrary.(int)
+        (fun x ->
+            let r = (Str.split (Str.regexp " +") rand_ppm_str x) in
+                let w = List.nth r 2 and
+                    h = List.nth r 3 and
+                    d = (List.Length r - 4) in
+                        (w * h = d)))
 
-let test_max_pixel =
+
+(* TODO: valid integers in range *)
+(* TODO: max finds max? *)
 
 
-test_max_pixel (x, y, z)
-test_find_max_ppm_body b
-test list_max l
-
-let _ =
+let () =
     QCheck_runner.run_tests [test_rand_color]

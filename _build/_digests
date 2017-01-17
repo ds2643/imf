@@ -1,0 +1,4 @@
+"Rule: ocaml: cmo* -> byte (%=ppm )": "\207\244A\006\214\031u#\232\150\021\t\244<\128W"
+"Rule: ocaml dependencies ml (%=ppm )": "n\233S\252\244\003\236\191\027\133*Z;1bD"
+"Rule: ocaml: ml -> cmo & cmi (%=ppm )": "F\002q\216B\007\019\204\237\254\134)3\004\r4"
+"Resource: /home/david/Projects/imf/ppm.ml": "\186N\183;\242|2\006\173\250>\252\026%:_"
