@@ -4,23 +4,28 @@
 (* TODO: idiomatically document *)
 (* TODO: seek criticism *)
 
-(* ppm grammar specification as type *)
+module PPM = struct
 
-type color = char (*in range 0 255*)
+    (* ppm grammar specification as type *)
+    type color = char (*in range 0 255*)
 
-type pixel = color * color * color
+    type pixel = color * color * color
 
-type ppm_body = pixel list
+    type ppm_body = pixel list
 
-type ppm_header = {
-    file_type: string; (* "p3" *)
-    columns: int;
-    rows: int;
-    max: char}
+    type ppm_header = {
+        file_type: string; (* "p3" *)
+        columns: int;
+        rows: int;
+        max: char}
 
-type ppm = {
-    header: ppm_header;
-    body: ppm_body}
+    type ppm = {
+        header: ppm_header;
+        body: ppm_body}
+
+    let rand_ppm_string (max_dim:int):string =
+        ppm_to_string (rand_ppm max_dim)
+end
 
 (* native ppm to string *)
 
@@ -88,8 +93,3 @@ let rand_ppm (max_dim:int):ppm =
 
 (* modular interface *)
 
-module PPM =
-    struct
-        let rand_ppm_string (max_dim:int):string =
-            ppm_to_string (rand_ppm max_dim)
-end
